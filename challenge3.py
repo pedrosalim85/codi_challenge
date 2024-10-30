@@ -46,7 +46,7 @@ def avaliar_candidatos(candidatos_df, formacao_req, habilidades_req, localizacao
         
     candidatos_df['PONTUACAO'] += (candidatos_df['CIDADE'] == localizacao_empresa).astype(int)*10
 
-    candidatos_df['PONTUACAO'] += (candidatos_df['EXPERIENCIA'] == vaga).astype(int)*10
+    candidatos_df['PONTUACAO'] += candidatos_df['EXPERIENCIA'].str.contains(vaga).astype(int) * 10
 
     candidatos_df['PONTUACAO'] += candidatos_df['TESTE']
 
