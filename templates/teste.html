@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Raciocínio Lógico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <h1>Teste de Raciocínio Lógico</h1>
+    <form action="{{ url_for('respostas') }}" method="post">
+        <br><p>1. Aldo e Eduardo são três amigos. Dois deles têm 66 anos, e sempre mentem. O outro tem 48 anos e sempre diz a verdade. Se Aldo disse “A idade de Daniel não é 66 anos”, então é correto afirmar que:</p>
+            
+        <div class="form-group2">
+            <label><input type="radio" name="pergunta1" value="a"> Eduardo e Daniel dizem a verdade</label><br>
+            <label><input type="radio" name="pergunta1" value="b"> Aldo e Eduardo mentem</label><br>
+            <label><input type="radio" name="pergunta1" value="c"> Eduardo tem 48 anos</label><br>
+            <label><input type="radio" name="pergunta1" value="d"> Aldo diz a verdade</label><br>
+            <label><input type="radio" name="pergunta1" value="e"> Aldo tem 48 anos</label><br>
+        </div>
+        <br><p>2. Alberto, Bernardo, Custódio e Danilo são quatro músicos muito talentosos. Não necessariamente nesta ordem, um é pianista, outro violinista, outro saxofonista e há o baterista. Também se tem ciência de que: <br>
+        <br><li>Alberto e Custódio assistiram à apresentação do saxofonista;<br> 
+            <li>O pianista dedicou uma música que compôs a Bernardo e ao baterista.<br></li>
+            <li>O baterista, que já se apresentou com Danilo, quer muito fazer uma apresentação com Alberto; <br></li>
+            <li>Alberto nunca conheceu Custódio.<br></li><br>
+            É possível concluir que o pianista, o saxofonista, o baterista e o violinista são, respectivamente:</p>
+            
+        <div class="form-group2">
+            <label><input type="radio" name="pergunta2" value="a"> Danilo, Bernardo, Custódio e Alberto</label><br>
+            <label><input type="radio" name="pergunta2" value="b"> Bernardo, Custódio, Alberto e Danilo</label><br>
+            <label><input type="radio" name="pergunta2" value="c"> Alberto, Danilo, Custódio e Bernardo</label><br>
+            <label><input type="radio" name="pergunta2" value="d"> Bernardo, Alberto, Danilo e Custódio</label><br>
+            <label><input type="radio" name="pergunta2" value="e"> Custódio, Danilo, Alberto e Bernardo</label><br>
+        </div>
+        <br><p>3. Jonas possui 15 bolas visualmente idênticas. Entretanto, uma delas é um pouco mais pesada do que as outras 14. Utilizando uma balança de dois pratos, o número mínimo de pesagens, com que é possível identificar a bola que destoa quanto ao peso é:</p>
+            
+        <div class="form-group2">
+            <label><input type="radio" name="pergunta3" value="a"> 5</label><br>
+            <label><input type="radio" name="pergunta3" value="b"> 4</label><br>
+            <label><input type="radio" name="pergunta3" value="c"> 3</label><br>
+            <label><input type="radio" name="pergunta3" value="d"> 2</label><br>
+            <label><input type="radio" name="pergunta3" value="e"> 1</label><br>
+        </div>
+        <br><p>4. Se você andar 5 metros para o norte, depois 3 metros para o leste, 2 metros para o sul, 1 metro para o oeste e 4 metros para o norte novamente, qual será a sua posição final em relação ao ponto inicial?</p>
+
+        <div class="form-group2">
+            <label><input type="radio" name="pergunta4" value="a"> 7 metros ao norte</label><br>
+            <label><input type="radio" name="pergunta4" value="b"> 3 metros ao norte</label><br>
+            <label><input type="radio" name="pergunta4" value="c"> 5 metros ao leste</label><br>
+            <label><input type="radio" name="pergunta4" value="d"> 4 metros ao norte</label><br>
+            <label><input type="radio" name="pergunta4" value="e"> 2 metros ao sul</label><br>
+        </div>
+        
+        <br><p>5. Considere a sentença: Todo estudante que gosta de Matemática também gosta de Ciências Biológicas. Considerando que essa sentença é falsa, é correto afirmar que:</p>
+        <div class="form-group2">
+            
+            <label><input type="radio" name="pergunta5" value="a"> Todo estudante que não gosta de Matemática gosta de Ciências Biológicas</label><br>
+            <label><input type="radio" name="pergunta5" value="b"> Nenhum estudante que gosta de Matemática também gosta de Ciências Biológicas</label><br>
+            <label><input type="radio" name="pergunta5" value="c"> Todo estudante que gosta de Matemática não gosta de Ciências Biológicas</label><br>
+            <label><input type="radio" name="pergunta5" value="d"> Algum estudante que gosta de Matemática não gosta de Ciências Biológicas</label><br>
+            <label><input type="radio" name="pergunta5" value="e"> Algum estudante que não gosta de Matemática gosta de Ciências Biológicas</label><br>
+        </div><br>
+        <button type="submit">Submeter</button>
+    </form>
+</body>
