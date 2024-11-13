@@ -1,6 +1,14 @@
 import pandas as pd
 import os
 import glob
+import numpy as np
+
+DATABASE = 'curriculos.db'
+
+def get_db():
+    db = sqlite3.connect(DATABASE)
+    db.row_factory = sqlite3.Row
+    return db
 
 def obter_informacoes_vaga():
     vaga = input('Qual a vaga que a empresa está oferecendo? ')
@@ -33,7 +41,10 @@ def ler_curriculos(diretorio):
 
     colunas = ['NOME', 'IDADE', 'FORMACAO', 'HABILIDADES', 'CIDADE', 'EXPERIENCIA', 'RESULTADO_TESTE']    
     df = pd.DataFrame(candidatos_cv, columns=colunas)
-    
+
+    df = df.map(lambda x: np.nan if x == [] else x)
+    df = df.dropna()
+
     return df
 
 def avaliar_candidatos(candidatos_df, formacao_req, habilidades_req, localizacao_empresa, vaga):
@@ -48,7 +59,7 @@ def avaliar_candidatos(candidatos_df, formacao_req, habilidades_req, localizacao
 
     candidatos_df['PONTUACAO'] += candidatos_df['EXPERIENCIA'].str.contains(vaga).astype(int) * 10
 
-    candidatos_df['PONTUACAO'] += candidatos_df['TESTE']
+    candidatos_df['PONTUACAO'] += candidatos_df['RESULTADO_TESTE']
 
     return candidatos_df.sort_values(by='PONTUACAO', ascending=False)
 
@@ -57,7 +68,7 @@ def sistema_ats():
     
     diretorio = 'C:/users/pedro/desktop/codi/challenge/cvs/'
     candidatos_df = ler_curriculos(diretorio)
-
+    print(candidatos_df)
     candidatos_avaliados = avaliar_candidatos(candidatos_df, formacao_req, habilidades_req, localizacao_empresa, vaga)
     
     print(f'Os candidatos aprovados para a vaga de {vaga} são:')
