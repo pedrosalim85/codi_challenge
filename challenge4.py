@@ -2,12 +2,12 @@ import pandas as pd
 import os
 import glob
 import numpy as np
+import sqlite3
 
-DATABASE = 'curriculos.db'
+DATABASE = 'C:/users/pedro/desktop/codi/challenge/codi_challenge/curriculos.db'
 
 def get_db():
     db = sqlite3.connect(DATABASE)
-    db.row_factory = sqlite3.Row
     return db
 
 def obter_informacoes_vaga():
@@ -18,31 +18,13 @@ def obter_informacoes_vaga():
     habilidades_req = input('Quais habilidades são requeridas? Separe por vírgulas. ').replace(" ", "").split(',')
     return vaga, numero_de_vagas, localizacao_empresa, formacao_req, habilidades_req
 
-def ler_curriculos(diretorio):
-    arquivos = glob.glob(os.path.join(diretorio, '*.json'))
-    candidatos_cv = []
-    
-    for arquivo in arquivos:
-        dados = pd.read_json(arquivo, encoding='latin-1')
+def ler_curriculos():
+    db = get_db() 
+    query = "SELECT * FROM cv" 
+    df = pd.read_sql_query(query, db) 
+    db.close()
 
-        records = dados['cv']
-        
-        record_data = [
-                
-            records['NOME'],
-            records['IDADE'], 
-            records['FORMACAO'], 
-            records['HABILIDADES'],
-            records['CIDADE'],
-            records['EXPERIENCIA'],
-            records['RESULTADO_TESTE'],
-            ]
-        candidatos_cv.append(record_data)
-
-    colunas = ['NOME', 'IDADE', 'FORMACAO', 'HABILIDADES', 'CIDADE', 'EXPERIENCIA', 'RESULTADO_TESTE']    
-    df = pd.DataFrame(candidatos_cv, columns=colunas)
-
-    df = df.map(lambda x: np.nan if x == [] else x)
+    #df = df.map(lambda x: np.nan if x == [] else x)
     df = df.dropna()
 
     return df
@@ -66,8 +48,7 @@ def avaliar_candidatos(candidatos_df, formacao_req, habilidades_req, localizacao
 def sistema_ats():
     vaga, numero_de_vagas, localizacao_empresa, formacao_req, habilidades_req = obter_informacoes_vaga()
     
-    diretorio = 'C:/users/pedro/desktop/codi/challenge/cvs/'
-    candidatos_df = ler_curriculos(diretorio)
+    candidatos_df = ler_curriculos()
     print(candidatos_df)
     candidatos_avaliados = avaliar_candidatos(candidatos_df, formacao_req, habilidades_req, localizacao_empresa, vaga)
     

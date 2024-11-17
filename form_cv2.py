@@ -1,5 +1,6 @@
 import json
 import os
+import sqlite3
 
 print('Bemvindo ao cadastro de candidatos')
 
