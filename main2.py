@@ -99,6 +99,7 @@ def buscar_ultimo_id():
     
     cursor.execute('SELECT MAX(id) FROM cv')
     ultimo_id = cursor.fetchone()[0]
+    #ultimo_id = cursor.execute('SELECT MAX(id) FROM cv')
     
     db.close()
     return ultimo_id
