@@ -18,6 +18,8 @@ def index():
     db.close()
     return render_template('index.html', cv_list=cv_list)
 
+############ BACK END DOS FORMULÁRIOS:
+
 @app.route('/add', methods=['POST'])
 def add():
     nome = request.form['nome']
@@ -40,10 +42,41 @@ def add():
     cv_id = salvar_no_banco(cv)
     return redirect(url_for('teste', id=cv_id))
 
+################ SALVAR OS DADOS NO DATABASE EM SQL
+
+def salvar_no_banco(cv):
+    db = get_db()
+    cursor = db.cursor()
+    
+    cursor.execute('''
+        INSERT INTO cv (nome, sobrenome, idade, formacao, habilidades, cidade, experiencia, resultado_teste)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (cv['Nome'], cv['Sobrenome'], cv['Idade'], cv['Formacao'], cv['Habilidades'], cv['Cidade'], cv['Experiencia'], 0))
+    
+    db.commit() 
+    db.close()
+    print('Dados salvos no banco de dados.')
+
+############# PÁGINA DO TESTE
+
 @app.route('/teste')
 def teste():
     id = request.args.get('id')
     return render_template('teste.html', id=id)
+
+############# BUSCAR A ÚLTIMA LINHA DA TABELA DO DATABASE (SQL)
+
+def buscar_ultimo_id():
+    db = get_db()
+    cursor = db.cursor()
+    
+    cursor.execute('SELECT MAX(id) FROM cv')
+    ultimo_id = cursor.fetchone()[0]
+    
+    db.close()
+    return ultimo_id
+
+############ BACKEND DO TESTE
 
 @app.route('/respostas', methods=['POST'])
 def respostas():
@@ -64,20 +97,7 @@ def respostas():
     atualizar_teste_no_banco(id, teste_pontos)
     return redirect(url_for('index'))
 
-def salvar_no_banco(cv):
-    db = get_db()
-    cursor = db.cursor()
-    
-    cursor.execute('''
-        INSERT INTO cv (nome, sobrenome, idade, formacao, habilidades, cidade, experiencia, resultado_teste)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (cv['Nome'], cv['Sobrenome'], cv['Idade'], cv['Formacao'], cv['Habilidades'], cv['Cidade'], cv['Experiencia'], 0))
-    
-    db.commit()
-    cv_id = cursor.lastrowid 
-    db.close()
-    print('Dados salvos no banco de dados.')
-    return cv_id
+############ SALVAR O TESTE NO BANCO DE DADOS (SQL)
 
 def atualizar_teste_no_banco(id, teste_pontos):
     db = get_db()
@@ -92,17 +112,6 @@ def atualizar_teste_no_banco(id, teste_pontos):
     db.commit()
     db.close()
     print('Resultado do teste atualizado no banco de dados.')
-
-def buscar_ultimo_id():
-    db = get_db()
-    cursor = db.cursor()
-    
-    cursor.execute('SELECT MAX(id) FROM cv')
-    ultimo_id = cursor.fetchone()[0]
-    #ultimo_id = cursor.execute('SELECT MAX(id) FROM cv')
-    
-    db.close()
-    return ultimo_id
 
 if __name__ == '__main__':
     app.run(debug=True)
