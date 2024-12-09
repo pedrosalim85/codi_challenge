@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Raciocínio Lógico</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script>
+        function showAlert() {
+            alert("Cadastro de candidato realizado com sucesso!");
+        }
+    </script>
 </head>
 <body>
     <h1>Teste de Raciocínio Lógico</h1>
@@ -60,6 +65,6 @@
             <label><input type="radio" name="pergunta5" value="d"> Algum estudante que gosta de Matemática não gosta de Ciências Biológicas</label><br>
             <label><input type="radio" name="pergunta5" value="e"> Algum estudante que não gosta de Matemática gosta de Ciências Biológicas</label><br>
         </div><br>
-        <button type="submit">Submeter</button>
+        <button type="submit" onclick="showAlert()">Submeter</button>
     </form>
 </body>
