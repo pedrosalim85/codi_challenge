@@ -1,7 +1,4 @@
 import pandas as pd
-import os
-import glob
-import numpy as np
 import sqlite3
 
 ####### 1. DEFINIR OS CRITÉRIOS DA AVALIAÇÃO - VARIÁVEL RESPOSTA DO ML
